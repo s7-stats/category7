@@ -15,8 +15,15 @@ LazyData: true
 Imports:
     statim, 
     S7,
+    rlang
 Suggests:
     testthat (>= 3.0.0)
+Collate:
+    'category7-package.R'
+    'utils.R'
+    'zzz.R'
+    'model-id.R'
+    'model-id-process.R'
 Config/testthat/edition: 3
 Roxygen: list(markdown = TRUE)
 Depends: 
