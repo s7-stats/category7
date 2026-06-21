@@ -9,7 +9,7 @@ Authors@R: c(
   )
 Description: A package designed for categorical data analysis built at top of S7,
     and subsequently an extension for `statim` package. 
-License: MIT + file LICENSE
+License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Imports:
