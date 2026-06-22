@@ -1,13 +1,13 @@
-#' @importFrom statim model_id_info
-S7::method(model_id_info, cont_tab) = function(.model_id, processed = NULL, ...) {
-    cat1_lbl = ct_quo_label(.model_id@cat1)
-    cat2_lbl = ct_quo_label(.model_id@cat2)
+#' @importFrom statim var_id_info
+S7::method(var_id_info, cont_tab) = function(.var_id, processed = NULL, ...) {
+    cat1_lbl = ct_quo_label(.var_id@cat1)
+    cat2_lbl = ct_quo_label(.var_id@cat2)
 
-    other_info = list(strict = .model_id@strict)
+    other_info = list(strict = .var_id@strict)
     vars = list()
 
     if (!is.null(processed) && length(processed)) {
-        if (.model_id@strict) {
+        if (.var_id@strict) {
             other_info$n_pairs = 1L
             vars = list(
                 list(name = processed$cat1_nm, preview = "<cat>"),
@@ -23,7 +23,7 @@ S7::method(model_id_info, cont_tab) = function(.model_id, processed = NULL, ...)
     }
 
     statim::class_model_inform(
-        model_id = .model_id,
+        var_id = .var_id,
         args = paste(cat1_lbl, "|", cat2_lbl),
         other_info = other_info,
         vars = vars,

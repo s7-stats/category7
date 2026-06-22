@@ -9,7 +9,7 @@
 #'   `cat1` and `cat2`. Set to `FALSE` to allow multiple variables, producing a
 #'   contingency table for each pair.
 #'
-#' @return An `cont_tab` / `model_id` S7 object.
+#' @return An `cont_tab` / `var_id` S7 object.
 #'
 #' @examples
 #' # Bare names
@@ -21,7 +21,7 @@
 #' @export
 cont_tab = S7::new_class(
     "cont_tab",
-    parent = statim::model_id,
+    parent = statim::var_id,
     properties = list(
         cat1 = S7::class_any,
         cat2 = S7::class_any,
