@@ -27,6 +27,8 @@ An \code{cont_tab} / \code{var_id} S7 object.
 set.seed(123)
 sex = sample(rep(c("Male", "Female"), each = 50))
 species = sample(c("dog", "cat", "bird"), length(sex), replace = TRUE)
-cont_tab(cat1, cat2)
+ct = cont_tab(sex, species)
+ct
+statim::define_model(ct)
 
 }
