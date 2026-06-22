@@ -3,9 +3,16 @@ chi2test_def = statim::stat_define(
     impl = statim::agendas(
         base = statim::baseline(
             fn = function(.proc, correct = TRUE) {
-                tab = .proc$tab
+                raw = stats::chisq.test(.proc$tab, correct = correct)
 
-                stats::chisq.test(tab, correct = correct)
+                class_chi2_tab(
+                    var1 = .proc$cat1_nm,
+                    var2 = .proc$cat2_nm,
+                    tab = raw$observed,
+                    chi2_stat = unname(raw$statistic),
+                    df = unname(raw$parameter),
+                    p_val = raw$p.value
+                )
             }
         )
     )
