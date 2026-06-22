@@ -4,7 +4,7 @@
 \alias{CHI2_TEST}
 \title{Chi-square test}
 \usage{
-CHI2_TEST(.model = NULL, .data = NULL, ...)
+CHI2_TEST(.var_id = NULL, .data = NULL, ...)
 }
 \description{
 Chi-square test
