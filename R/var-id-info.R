@@ -22,7 +22,7 @@ S7::method(var_id_info, cont_tab) = function(.var_id, processed = NULL, ...) {
         }
     }
 
-    statim::class_model_inform(
+    statim::class_var_inform(
         var_id = .var_id,
         args = paste(cat1_lbl, "|", cat2_lbl),
         other_info = other_info,
