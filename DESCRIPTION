@@ -22,9 +22,9 @@ Collate:
     'category7-package.R'
     'utils.R'
     'zzz.R'
-    'model-id.R'
-    'model-id-process.R'
-    'model-id-info.R'
+    'var-id.R'
+    'var-id-process.R'
+    'var-id-info.R'
     'chi-square-defs.R'
     'chi-square.R'
 Config/testthat/edition: 3
