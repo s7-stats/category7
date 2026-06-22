@@ -3,5 +3,6 @@
 export(CHI2_TEST)
 export(class_chi2_tab)
 export(cont_tab)
+importFrom(statim,auto_tidy)
 importFrom(statim,model_processor)
 importFrom(statim,var_id_info)
