@@ -1,4 +1,33 @@
-#' Chi-square test
+#' Chi-Square Test
+#'
+#' `CHI2_TEST()` performs a chi-square test of independence for a contingency
+#' table. If `CHI2_TEST` is supplied within the lazy-loaded piped/grammar syntax, supply
+#' `CHI2_TEST` as a function within i.e. `prepare_test(.test = CHI2_TEST)` call.
+#'
+#' @param .var_id A variable mapper `<var_id>`. When supplied, the test executes immediately.
+#' @param .data A data frame. Only used on the standalone path.
+#' @param ... Additional arguments passed to the implementation. See the
+#'   **Arguments by variable mapper** section for the full list per path.
+#'
+#' @return A `cld_exec` object (in [statim::conclude()]), a `stat_infer_spec` object, or a
+#'   `test_spec` when `.var_id = NULL`. By default, returns a [class_chi2_tab] object.
+#'
+#' @section Supported variable mapper `<var_id>`s:
+#' - `cont_tab()`: chi-square test of independence between two categorical variables.
+#'
+#' @examples
+#' sex = sample(rep(c("Male", "Female"), each = 50))
+#' species = sample(c("dog", "cat", "bird"), length(sex), replace = TRUE)
+#'
+#' # eager
+#' CHI2_TEST(cont_tab(sex, species))
+#'
+#' # piped/grammar syntax
+#' define_model(cont_tab(sex, species)) |>
+#'     prepare_test(CHI2_TEST) |>
+#'     conclude()
+#'
+#' @seealso [class_chi2_tab] for result class slots. [conclude()], [auto_tidy()].
 #'
 #' @export
 CHI2_TEST = statim::HTEST_FN(
@@ -7,6 +36,30 @@ CHI2_TEST = statim::HTEST_FN(
     .name = "Chi-Square Test"
 )
 
+#' Structured result container for chi-square tests
+#'
+#' @description
+#' An S7 class produced by [CHI2_TEST] piped/grammar syntaxs using [cont_tab()] as the
+#' variable mapper `<var_id>`. Not constructed manually — use the piped/grammar syntax instead.
+#'
+#' Inherits from [class_stat_infer], so [auto_tidy()] dispatches on it
+#' automatically. Downstream packages can use it as a `parent` in
+#' `S7::new_class()`.
+#'
+#' @usage NULL
+#'
+#' @details
+#' Slots (populated automatically by [CHI2_TEST]):
+#'
+#' - `var1`: name of the row variable.
+#' - `var2`: name of the column variable.
+#' - `tab`: observed contingency table (a `table` or `matrix`).
+#' - `chi2_stat`: chi-square statistic.
+#' - `df`: degrees of freedom.
+#' - `p_val`: p-value.
+#'
+#' @seealso [CHI2_TEST], [auto_tidy()], [class_stat_infer]
+#'
 #' @export
 class_chi2_tab = S7::new_class(
     "chi2",
@@ -27,7 +80,6 @@ class_chi2_tab = S7::new_class(
     )
 )
 
-#' @export
 S7::method(print, class_chi2_tab) = function(x, percentage = "all", expected = TRUE, ...) {
     pval_styler = function(x) {
         x_num = suppressWarnings(as.numeric(x$value))
@@ -40,7 +92,6 @@ S7::method(print, class_chi2_tab) = function(x, percentage = "all", expected = T
         }
     }
 
-    # ct = x@tab
     names(dimnames(x@tab)) = c(x@var1, x@var2)
 
     tabstats::cross_table(x@tab, percentage = percentage, expected = expected)

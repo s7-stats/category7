@@ -2,10 +2,47 @@
 % Please edit documentation in R/chi-square.R
 \name{CHI2_TEST}
 \alias{CHI2_TEST}
-\title{Chi-square test}
+\title{Chi-Square Test}
 \usage{
 CHI2_TEST(.var_id = NULL, .data = NULL, ...)
 }
+\arguments{
+\item{.var_id}{A variable mapper \verb{<var_id>}. When supplied, the test executes immediately.}
+
+\item{.data}{A data frame. Only used on the standalone path.}
+
+\item{...}{Additional arguments passed to the implementation. See the
+\strong{Arguments by variable mapper} section for the full list per path.}
+}
+\value{
+A \code{cld_exec} object (in \code{\link[statim:conclude]{statim::conclude()}}), a \code{stat_infer_spec} object, or a
+\code{test_spec} when \code{.var_id = NULL}. By default, returns a \link{class_chi2_tab} object.
+}
 \description{
-Chi-square test
+\code{CHI2_TEST()} performs a chi-square test of independence for a contingency
+table. If \code{CHI2_TEST} is supplied within the lazy-loaded piped/grammar syntax, supply
+\code{CHI2_TEST} as a function within i.e. \code{prepare_test(.test = CHI2_TEST)} call.
+}
+\section{Supported variable mapper \verb{<var_id>}s}{
+
+\itemize{
+\item \code{cont_tab()}: chi-square test of independence between two categorical variables.
+}
+}
+
+\examples{
+sex = sample(rep(c("Male", "Female"), each = 50))
+species = sample(c("dog", "cat", "bird"), length(sex), replace = TRUE)
+
+# eager
+CHI2_TEST(cont_tab(sex, species))
+
+# piped/grammar syntax
+define_model(cont_tab(sex, species)) |>
+    prepare_test(CHI2_TEST) |>
+    conclude()
+
+}
+\seealso{
+\link{class_chi2_tab} for result class slots. \code{\link[statim:conclude]{statim::conclude()}}, \code{\link[statim:auto_tidy]{statim::auto_tidy()}}.
 }
